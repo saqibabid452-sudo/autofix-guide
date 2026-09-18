@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoFix Guide — Car Mechanic Helper</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#18212b}
+header{background:#111820;color:#fff;padding:28px 18px;text-align:center}
+header h1{margin:0;font-size:30px}header p{margin:8px 0 0;color:#b9c5d0}
+.container{max-width:850px;margin:24px auto;padding:0 16px}
+.card{background:#fff;border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 5px 20px #00000012}
+label{display:block;font-weight:bold;margin:12px 0 7px}
+select,input,button{width:100%;padding:13px;border-radius:10px;border:1px solid #ccd4dc;font-size:16px}
+button{background:#e53935;color:#fff;border:0;font-weight:bold;margin-top:16px;cursor:pointer}
+button:hover{opacity:.9}
+.result{display:none}.result h2{margin-top:0}.tag{display:inline-block;background:#eef2f5;padding:7px 10px;border-radius:20px;margin:4px;font-size:13px}
+ul{padding-left:22px;line-height:1.7}.note{font-size:13px;color:#65717d}
+footer{text-align:center;padding:30px;color:#68737d}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔧 AutoFix Guide</h1>
+  <p>Simple car problem diagnosis & mechanic information</p>
+</header>
+
+<div class="container">
+  <div class="card">
+    <h2>Find Your Car Problem</h2>
+    <label for="car">Select Car</label>
+    <select id="car">
+      <option value="corolla">Toyota Corolla</option>
+      <option value="alto">Suzuki Alto</option>
+      <option value="generic">Other / General</option>
+    </select>
+
+    <label for="problem">Select Problem</label>
+    <select id="problem">
+      <option value="missing">Engine Missing / Misfire</option>
+      <option value="starting">Car Not Starting</option>
+      <option value="abs">ABS Warning Light</option>
+      <option value="overheat">Engine Overheating</option>
+      <option value="ac">AC Not Cooling</option>
+    </select>
+
+    <button onclick="diagnose()">🔍 Diagnose Problem</button>
+  </div>
+
+  <div class="card result" id="result">
+    <h2 id="title"></h2>
+    <div id="tags"></div>
+    <h3>Possible causes</h3>
+    <ul id="causes"></ul>
+    <h3>Basic checks</h3>
+    <ul id="checks"></ul>
+    <p class="note">⚠️ This is general information, not a substitute for professional diagnosis. Use the correct service manual and scan data for the exact vehicle.</p>
+  </div>
+
+  <div class="card">
+    <h2>📺 Mechanic Videos</h2>
+    <p>Add your YouTube Shorts here later. This section can send visitors to your own mechanic channel.</p>
+  </div>
+
+  <div class="card">
+    <h2>💰 Future Earning</h2>
+    <p>Once the website gets visitors, you can explore advertising, relevant affiliate links, and paid mechanic listings. Don't promise users guaranteed earnings.</p>
+  </div>
+</div>
+
+<footer>© 2026 AutoFix Guide • Built for car enthusiasts & mechanics</footer>
+
+<script>
+const data={
+ missing:{
+  title:"Engine Missing / Misfire",
+  tags:["Spark plugs","Ignition coil","Fuel","Air leak","Scan codes"],
+  causes:["Worn or fouled spark plug","Weak or faulty ignition coil","Injector or fuel-delivery issue","Vacuum/air leak","Sensor or wiring problem"],
+  checks:["Scan for OBD-II trouble codes.","Inspect plugs and ignition components.","Check connectors and wiring for damage.","Compare live data and cylinder misfire counts when available."]
+ },
+ starting:{
+  title:"Car Not Starting",
+  tags:["Battery","Starter","Fuel","Ignition"],
+  causes:["Weak battery","Starter/relay problem","Fuel delivery issue","Ignition or immobilizer issue"],
+  checks:["Check battery voltage and terminal connections.","Listen for starter operation.","Check relevant fuses and relays.","Scan for diagnostic trouble codes."]
+ },
+ abs:{
+  title:"ABS Warning Light",
+  tags:["Wheel sensor","ABS module","Wiring"],
+  causes:["Dirty/damaged wheel-speed sensor","Damaged sensor wiring","Tone ring/encoder issue","ABS module or hydraulic fault"],
+  checks:["Scan the ABS system for codes.","Inspect wheel-speed sensor wiring.","Check sensor mounting and visible damage.","Use live wheel-speed data if your scan tool supports it."]
+ },
+ overheat:{
+  title:"Engine Overheating",
+  tags:["Coolant","Radiator","Thermostat","Fan"],
+  causes:["Low coolant","Cooling fan problem","Thermostat issue","Radiator restriction","Water-pump problem"],
+  checks:["Never open a hot cooling system.","After the engine is safely cool, check coolant level and leaks.","Check fan operation when appropriate.","Have the cooling system pressure-tested if a leak is suspected."]
+ },
+ ac:{
+  title:"AC Not Cooling",
+  tags:["Refrigerant","Compressor","Condenser","Blower"],
+  causes:["Low refrigerant from a leak","Compressor issue","Condenser airflow problem","Electrical/control fault"],
+  checks:["Check blower and AC controls.","Inspect condenser airflow and visible damage.","Use proper AC service equipment for refrigerant diagnosis.","Do not vent refrigerant into the atmosphere."]
+ }
+};
+function diagnose(){
+ const p=document.getElementById("problem").value,d=data[p];
+ document.getElementById("title").textContent=d.title;
+ document.getElementById("tags").innerHTML=d.tags.map(x=>`<span class="tag">${x}</span>`).join("");
+ document.getElementById("causes").innerHTML=d.causes.map(x=>`<li>${x}</li>`).join("");
+ document.getElementById("checks").innerHTML=d.checks.map(x=>`<li>${x}</li>`).join("");
+ document.getElementById("result").style.display="block";
+ document.getElementById("result").scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>
